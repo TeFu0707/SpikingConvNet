@@ -288,8 +288,8 @@ class SNN:
         output_spikes = np.zeros((nb_timesteps,) + self.output_shape)
         sum_spks = 0
         for t in range(nb_timesteps):
-            spk_in = x[t].astype(np.float64)
-            sum_spks += spk_in.sum()
+            spk_in = x[t].astype(np.float64)    #when self is called after initialization, run the layers one by one, each input is provided to the next
+            sum_spks += spk_in.sum()    
             spk = self.conv_layers[0](spk_in, train=(train_layer==0))
             sum_spks += spk.sum()
             spk_in = self.pool_layers[0](spk)
